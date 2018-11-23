@@ -12,16 +12,16 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	sess, error := session.NewSession(&aws.Config{
+	sess, er := session.NewSession(&aws.Config{
 		Region: aws.String("us-west-2")},
 	)
 
-	if error != nil {
+	if er != nil {
 		log.Print("this stuff happens")
 		secret := os.Getenv("CLOUDCUBE_SECRET_ACCESS_KEY")
 		id := os.Getenv("CLOUDCUBE_ACCESS_KEY_ID")
 
-		sess, error = session.NewSession(&aws.Config{
+		sess, er = session.NewSession(&aws.Config{
 			Credentials: credentials.NewStaticCredentials(id, secret, "TOKEN"),
 			Region: aws.String("us-west-2")},
 		)
