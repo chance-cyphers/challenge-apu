@@ -17,6 +17,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if error != nil {
+		log.Print("this stuff happens")
 		secret := os.Getenv("CLOUDCUBE_SECRET_ACCESS_KEY")
 		id := os.Getenv("CLOUDCUBE_ACCESS_KEY_ID")
 
