@@ -1,6 +1,13 @@
 {
 	"comment": "",
 	"ignore": "test",
-	"package": [],
+	"package": [
+		{
+			"checksumSHA1": "aCY2jtu8I7+Urfl/6hjdqNALyOw=",
+			"path": "github.com/aws/aws-sdk-go",
+			"revision": "1cdeb6a52341702dec47907cee4f23129806b363",
+			"revisionTime": "2018-11-21T19:28:25Z"
+		}
+	],
 	"rootPath": "challenge"
 }
