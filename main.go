@@ -8,35 +8,31 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	sess, _ := session.NewSession(&aws.Config{
-		Region: aws.String("us-west-2")},
+	sess, er := session.NewSession(&aws.Config{
+		Region: aws.String("us-east-1")},
 	)
 
-	//if er != nil {
-	//	secret := os.Getenv("CLOUDCUBE_SECRET_ACCESS_KEY")
-	//	id := os.Getenv("CLOUDCUBE_ACCESS_KEY_ID")
-	//
-	//	sess, er = session.NewSession(&aws.Config{
-	//		Credentials: credentials.NewStaticCredentials(id, secret, "TOKEN"),
-	//		Region:      aws.String("us-west-2")},
-	//	)
-	//}
+	if er != nil {
+		exitErrorf("error creating session", er)
+	}
 
 	svc := s3.New(sess)
 
-	result, err := svc.ListBuckets(nil)
-	if err != nil {
-		exitErrorf("Unable to list buckets, %v", err)
+	s3Req, _ := svc.GetObjectRequest(&s3.GetObjectInput{
+		Bucket: aws.String("challenge-video-bucket"),
+		Key:    aws.String("/test.txt"),
+	})
+
+	urlStr, er := s3Req.Presign(15 * time.Minute)
+	if er != nil {
+		exitErrorf("error presigning", er)
 	}
 
-	for _, b := range result.Buckets {
-		fmt.Printf("* %s created on %s\n",
-			aws.StringValue(b.Name), aws.TimeValue(b.CreationDate))
-		fmt.Fprintf(w, "I love %s! ", aws.StringValue(b.Name))
-	}
+	fmt.Fprintf(w, "{ \"url\": \"%s\"}", urlStr)
 }
 
 func main() {
