@@ -12,9 +12,11 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	log.Print("entering handler")
 	sess, er := session.NewSession(&aws.Config{
 		Region: aws.String("us-west-2")},
 	)
+	log.Print("after first session attempt")
 
 	if er != nil {
 		log.Print("this stuff happens")
