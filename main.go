@@ -1,48 +1,64 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
+	"google.golang.org/grpc"
+	pb "google.golang.org/grpc/examples/helloworld/helloworld"
+	"google.golang.org/grpc/reflection"
 	"log"
-	"net/http"
+	"net"
 	"os"
-	"time"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	sess, er := session.NewSession(&aws.Config{
-		Region: aws.String("us-east-1")},
-	)
+//func handler(w http.ResponseWriter, r *http.Request) {
+//	sess, er := session.NewSession(&aws.Config{
+//		Region: aws.String("us-east-1")},
+//	)
+//
+//	if er != nil {
+//		exitErrorf("error creating session", er)
+//	}
+//
+//	svc := s3.New(sess)
+//
+//	s3Req, _ := svc.GetObjectRequest(&s3.GetObjectInput{
+//		Bucket: aws.String("challenge-video-bucket"),
+//		Key:    aws.String("/test.txt"),
+//	})
+//
+//	urlStr, er := s3Req.Presign(15 * time.Minute)
+//	if er != nil {
+//		exitErrorf("error presigning", er)
+//	}
+//
+//	fmt.Fprintf(w, "{ \"url\": \"%s\"}", urlStr)
+//}
 
-	if er != nil {
-		exitErrorf("error creating session", er)
-	}
+type server struct{}
 
-	svc := s3.New(sess)
-
-	s3Req, _ := svc.GetObjectRequest(&s3.GetObjectInput{
-		Bucket: aws.String("challenge-video-bucket"),
-		Key:    aws.String("/test.txt"),
-	})
-
-	urlStr, er := s3Req.Presign(15 * time.Minute)
-	if er != nil {
-		exitErrorf("error presigning", er)
-	}
-
-	fmt.Fprintf(w, "{ \"url\": \"%s\"}", urlStr)
+func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	return &pb.HelloReply{Message: "Hello bob"}, nil
 }
 
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8081"
+		port = "8080"
 	}
 
-	http.HandleFunc("/", handler)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	lis, err := net.Listen("tcp", ":"+port)
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+	grpcServer := grpc.NewServer()
+	pb.RegisterGreeterServer(grpcServer, &server{})
+	reflection.Register(grpcServer)
+	if err := grpcServer.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
+	//http.HandleFunc("/", handler)
+	//log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
 func exitErrorf(msg string, args ...interface{}) {
