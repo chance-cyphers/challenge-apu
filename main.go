@@ -38,7 +38,7 @@ import (
 type server struct{}
 
 func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
-	return &pb.HelloReply{Message: "Hello bob"}, nil
+	return &pb.HelloReply{Message: "Hello rob"}, nil
 }
 
 func main() {
