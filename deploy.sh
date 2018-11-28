@@ -9,7 +9,7 @@ version=`cat VERSION`
 major="$(cut -d'.' -f1 <<< $version)"
 minor="$(cut -d'.' -f2 <<< $version)"
 newVersion="$major.$((minor+1))"
-echo newVersion > VERSION
+echo ${newVersion} > VERSION
 
 # Commit version bump
 git add -A
