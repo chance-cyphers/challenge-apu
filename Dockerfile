@@ -4,7 +4,7 @@ ADD . $GOPATH/src/app/
 WORKDIR $GOPATH/src/app
 
 RUN go get -u github.com/kardianos/govendor
-RUN go get golang.org/x/sys/unix
+RUN go get -u golang.org/x/sys/unix
 RUN govendor sync
 RUN go build -o main .
 
