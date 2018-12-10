@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service Skill {
+    rpc CreateSkill (CreateSkillRequest) returns (CreateSkillResponse) {}
+}
+
+message CreateSkillRequest {
+    string name = 1;
+}
+
+message CreateSkillResponse {
+    int32 id = 1;
+    string name = 2;
+}
