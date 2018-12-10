@@ -18,6 +18,9 @@ kind: Deployment
 metadata:
   name: esp-grpc-challenge
 spec:
+  selector:
+    matchLabels:
+      app: esp-grpc-challenge
   replicas: 1
   template:
     metadata:
@@ -31,7 +34,7 @@ spec:
             "--http2_port=9000",
             "--service=challenge.endpoints.challenge-api.cloud.goog",
             "--rollout_strategy=managed",
-            "--backend=grpc://127.0.0.1:8000"
+            "--backend=grpc://127.0.0.1:8080"
           ]
           ports:
             - containerPort: 9000

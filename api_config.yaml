@@ -10,5 +10,5 @@ apis:
 usage:
  rules:
    # methods that can be called without an API Key.
-   - selector: helloworld.Greeter.SayHello
+   - selector: "*"
      allow_unregistered_calls: true
