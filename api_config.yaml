@@ -1,0 +1,14 @@
+type: google.api.Service
+config_version: 3
+
+name: challenge.endpoints.challenge-api.cloud.goog
+
+title: Challenging gRPC API
+apis:
+ - name: helloworld.Greeter
+
+usage:
+ rules:
+   # methods that can be called without an API Key.
+   - selector: helloworld.Greeter.SayHello
+     allow_unregistered_calls: true
