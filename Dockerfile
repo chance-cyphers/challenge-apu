@@ -1,8 +1,7 @@
 FROM golang:latest
-RUN mkdir $GOPATH/src/app
-ADD . $GOPATH/src/app/
-ADD proto $GOPATH/src/app/proto
-WORKDIR $GOPATH/src/app
+RUN mkdir $GOPATH/src/challenge
+ADD . $GOPATH/src/challenge/
+WORKDIR $GOPATH/src/challenge
 
 RUN go get -u github.com/kardianos/govendor
 RUN go get -u golang.org/x/sys/unix
