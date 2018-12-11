@@ -5,7 +5,7 @@ name: challenge-grpc.endpoints.challenge-api.cloud.goog
 
 title: Challenging gRPC API
 apis:
- - name: challenge.Greeter
+ - name: challenge.Challenge
 
 usage:
  rules:
