@@ -1,7 +1,7 @@
 type: google.api.Service
 config_version: 3
 
-name: challenge.endpoints.challenge-api.cloud.goog
+name: challenge-grpc.endpoints.challenge-api.cloud.goog
 
 title: Challenging gRPC API
 apis:
