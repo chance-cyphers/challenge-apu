@@ -18,9 +18,6 @@ kind: Deployment
 metadata:
   name: esp-grpc-challenge
 spec:
-  selector:
-    matchLabels:
-      app: esp-grpc-challenge
   replicas: 1
   template:
     metadata:
@@ -32,13 +29,13 @@ spec:
           image: gcr.io/endpoints-release/endpoints-runtime:1.16.0
           args: [
             "--http2_port=9000",
-            "--service=challenge.endpoints.challenge-api.cloud.goog",
+            "--service=challenge-grpc.endpoints.challenge-api.cloud.goog",
             "--rollout_strategy=managed",
             "--backend=grpc://127.0.0.1:8080"
           ]
           ports:
             - containerPort: 9000
         - name: challenge
-          image: skyfrog28/challenge:1.3
+          image: skyfrog28/challenge:1.8
           ports:
             - containerPort: 8080
