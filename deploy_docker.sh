@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+set -e
 
 # Be up to date
 git pull
