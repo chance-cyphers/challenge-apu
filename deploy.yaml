@@ -36,6 +36,19 @@ spec:
           ports:
             - containerPort: 9000
         - name: challenge
-          image: skyfrog28/challenge:1.8
+          image: skyfrog28/challenge:1.9
           ports:
             - containerPort: 8080
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_IP
+              value: 10.39.32.3

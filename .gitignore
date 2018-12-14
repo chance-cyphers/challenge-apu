@@ -5,3 +5,4 @@ challenge
 .credentials/
 
 .DS_Store
+cloud_sql_proxy

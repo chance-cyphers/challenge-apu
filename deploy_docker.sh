@@ -19,6 +19,3 @@ git push
 # Build/store image
 docker build -t skyfrog28/challenge:${newVersion} .
 docker push skyfrog28/challenge:${newVersion}
-
-# Put it up there
-#kubectl set image deployment challenge-api challenge-api=skyfrog28/challenge:${newVersion}
