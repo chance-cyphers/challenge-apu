@@ -22,22 +22,15 @@ func (s *server) CreateSkill(ctx context.Context, in *challenge.CreateSkillReque
 		return nil, err
 	}
 
-	rows, err := db.Query("SELECT * FROM skill")
+	var skillId int
+	err = db.QueryRow(`INSERT INTO skill(name) VALUES ($1) RETURNING id`, in.Name).Scan(&skillId)
+
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
-	rows.Next()
-	var id int
-	var name string
-	err = rows.Scan(&id, &name)
-	if err != nil {
-		log.Println(err)
-		return nil, err
-	}
-
-	return &challenge.CreateSkillResponse{Name: name, Id: int32(id)}, nil
+	return &challenge.CreateSkillResponse{Name: in.Name, Id: int32(skillId)}, nil
 }
 
 func main() {
