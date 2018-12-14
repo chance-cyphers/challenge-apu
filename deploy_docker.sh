@@ -13,7 +13,7 @@ echo ${newVersion} > VERSION
 
 # Commit version bump
 git add -A
-git commit -m "Version $version"
+git commit -m "Version $newVersion"
 git push
 
 # Build/store image
