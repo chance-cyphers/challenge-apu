@@ -36,7 +36,7 @@ spec:
           ports:
             - containerPort: 9000
         - name: challenge
-          image: skyfrog28/challenge:1.9
+          image: skyfrog28/challenge:1.11
           ports:
             - containerPort: 8080
           env:

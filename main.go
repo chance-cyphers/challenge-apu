@@ -4,7 +4,6 @@ import (
 	"challenge/proto"
 	"context"
 	"database/sql"
-	"fmt"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -56,9 +55,8 @@ func main() {
 	challenge.RegisterChallengeServer(grpcServer, &server{})
 	reflection.Register(grpcServer)
 
-	fmt.Println("starting server on port " + port)
+	log.Println("starting server on port " + port)
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
-
 }
