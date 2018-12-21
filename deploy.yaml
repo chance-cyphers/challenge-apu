@@ -13,6 +13,21 @@ spec:
     app: esp-grpc-challenge
   type: LoadBalancer
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: esp-grpc-challenge-json
+spec:
+  ports:
+    # Port that accepts gRPC and JSON/HTTP2 requests over HTTP.
+    - port: 80
+      targetPort: 9001
+      protocol: TCP
+      name: http
+  selector:
+    app: esp-grpc-challenge
+  type: LoadBalancer
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -28,6 +43,7 @@ spec:
         - name: esp
           image: gcr.io/endpoints-release/endpoints-runtime:1.16.0
           args: [
+            "--http_port=9001",
             "--http2_port=9000",
             "--service=challenge-grpc.endpoints.challenge-api.cloud.goog",
             "--rollout_strategy=managed",

@@ -1,9 +1,13 @@
 syntax = "proto3";
 
+import "google/api/annotations.proto";
+
 package challenge;
 
 service Challenge {
-    rpc CreateSkill (CreateSkillRequest) returns (CreateSkillResponse) {}
+    rpc CreateSkill (CreateSkillRequest) returns (CreateSkillResponse) {
+        option (google.api.http) = { post: "/v1/skill" };
+    }
 }
 
 message CreateSkillRequest {
