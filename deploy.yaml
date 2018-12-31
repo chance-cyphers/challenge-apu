@@ -47,7 +47,8 @@ spec:
             "--http2_port=9000",
             "--service=challenge-grpc.endpoints.challenge-api.cloud.goog",
             "--rollout_strategy=managed",
-            "--backend=grpc://127.0.0.1:8080"
+            "--backend=grpc://127.0.0.1:8080",
+            "--cors_preset=basic"
           ]
           ports:
             - containerPort: 9000
