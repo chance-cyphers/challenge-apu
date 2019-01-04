@@ -129,6 +129,12 @@
 			"revisionTime": "2018-10-29T18:00:05Z"
 		},
 		{
+			"checksumSHA1": "vZ5PYWH+FgRxI2yMzIOtdonWH9w=",
+			"path": "google.golang.org/genproto/googleapis/api/annotations",
+			"revision": "b5d43981345bdb2c233eb4bf3277847b48c6fdc6",
+			"revisionTime": "2018-11-09T15:42:31Z"
+		},
+		{
 			"checksumSHA1": "MgYFT27I9gfAtSVBpGVqkCYOj3U=",
 			"path": "google.golang.org/genproto/googleapis/rpc/status",
 			"revision": "b5d43981345bdb2c233eb4bf3277847b48c6fdc6",
