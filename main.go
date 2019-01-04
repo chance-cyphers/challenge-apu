@@ -1,20 +1,21 @@
 package main
 
 import (
-	"challenge/proto"
+	challenge "challenge/proto"
 	"context"
 	"database/sql"
-	_ "github.com/lib/pq"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
 	"os"
+
+	_ "github.com/lib/pq"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 type server struct{}
 
-func (s *server) CreateSkill(ctx context.Context, in *challenge.CreateSkillRequest) (*challenge.CreateSkillResponse, error) {
+func (s *server) CreateSkill(ctx context.Context, in *challenge.CreateSkillRequest) (*challenge.Skill, error) {
 	connString, _ := DbConnectionString()
 	db, err := sql.Open("postgres", connString)
 	if err != nil {
@@ -30,7 +31,13 @@ func (s *server) CreateSkill(ctx context.Context, in *challenge.CreateSkillReque
 		return nil, err
 	}
 
-	return &challenge.CreateSkillResponse{Name: in.Name, Id: int32(skillId)}, nil
+	return &challenge.Skill{Name: in.Name, Id: int32(skillId)}, nil
+}
+
+func (s *server) ListSkills(ctx context.Context, in *challenge.Empty) (*challenge.Skills, error) {
+	aSkill := challenge.Skill{Name: "frank", Id: 44}
+	skills := []*challenge.Skill{&aSkill}
+	return &challenge.Skills{Skills: skills}, nil
 }
 
 func main() {
